@@ -1,0 +1,25 @@
+
+//请注意这种将每个小写字母转化为质数的方法可以用来区别字母类型数量不同的情况
+//非常的巧妙
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        vector<int> vec = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97, 101};
+        unordered_map<int, vector<string>> hash;
+        for(string str : strs)
+        {
+            int tmp = 1;
+            for(char c : str)
+            {
+                tmp *= vec[c - 'a'];
+            }
+            hash[tmp].push_back(str);
+        }
+        vector<vector<string>> result;
+        for(auto iter = hash.begin(); iter != hash.end(); iter++)
+        {
+            result.push_back(iter -> second);
+        }
+        return result;
+    }
+};
