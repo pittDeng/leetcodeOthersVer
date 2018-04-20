@@ -1,0 +1,84 @@
+/*这个方法是正确的，核心思想是当出现')'时，如果st.top()所指代的是'('，就出栈，说明匹配正确，如果不是，则匹配错误，
+这里记录所有出错点点，相邻的出错点距离最大的即最大长度*/
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        int n=s.length();
+        stack<int>mystack;
+        int max=0;
+        for(int i=0;i<n;i++)
+        {
+            if(s[i]=='(')mystack.push(i);
+            else
+            {
+                if((!mystack.empty())&&s[mystack.top()]=='(')mystack.pop();
+                else mystack.push(i);
+            }
+        }
+        if(mystack.empty())return n;
+        int a=n;
+        int b=0;
+        while(!mystack.empty())
+        {
+            b=mystack.top();
+            mystack.pop();
+            max=a-b-1>max?a-b-1:max;
+            a=b;
+        }
+        max=a>max?a:max;
+        return max;
+        
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*这种方法错误，是因为如果尾部有（未出栈，中间是正常的，就会导致出错。*/
+/*class Solution {
+public:
+    int longestValidParentheses(string s) {
+        stack<int>mystack;
+        int last=-1;
+        int max=0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='(')mystack.push(i);
+            else
+            {
+                if(mystack.empty())
+                {
+                    int temp=i-last-1;
+                    if(temp>max)max=temp;
+                    last=i;
+                    continue;
+                }
+                mystack.pop();
+            }
+        }
+        if(mystack.empty())
+        {
+            if(s.size()-last-1>max)max=s.size()-last-1;
+        }
+        else
+        {
+            if(s.size()-mystack.top()-1>max)max=s.size()-mystack.top()-1;
+        }  
+        return max;
+    }
+};*/
