@@ -1,0 +1,28 @@
+//这里用了两种方法，第一种方法是动态规划法，该步的走法等于前一步和前两步走法之和。
+//第二种方法是使用了排列组合的方法，没有第一种方法好，选出哪些位置走两步，哪些位置走一步
+typedef long long ll;
+class Solution {
+public:
+    int climbStairs(int n) {
+        if(n<3)return n;
+        int ways[n];
+        ways[0]=1;
+        ways[1]=2;
+        for(int i=2;i<n;i++)
+            ways[i]=ways[i-1]+ways[i-2];
+        return ways[n-1];
+        /*if(n<2)return 1;
+        int twoMax=n/2;
+        int temp=1;
+        int sum=1;
+        for(int i=1;i<twoMax;i++)
+        {
+            temp=((ll)temp*(ll)(n-2*i+2)*(ll)(n-2*i+1))/(i*(n-i+1));
+            sum+=temp;
+        }
+        if(2*twoMax<n)sum+=n-twoMax;
+        else sum+=1;
+        return sum;
+        */
+    }
+};
