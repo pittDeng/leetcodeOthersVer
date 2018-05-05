@@ -1,0 +1,15 @@
+//Others'Version
+//核心思想就是先生成一个顺序数列，然后将最后一个数递增，当比n大时，就回溯，开始加倒数第二个，然后让最后一个等于导数第二个加1，以此类推。
+vector<vector<int>> result;
+		int i = 0;
+		vector<int> p(k, 0);
+		while (i >= 0) {
+			p[i]++;
+			if (p[i] > n) --i;
+			else if (i == k - 1) result.push_back(p);
+			else {
+			    ++i;
+			    p[i] = p[i - 1];
+			}
+		}
+		return result;
