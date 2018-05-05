@@ -1,0 +1,19 @@
+
+//这一题的核心思想就是将0向前换，将2向后还，中间的自然是1
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int zeroIndex=0;
+        int twoIndex=nums.size()-1;
+        if(twoIndex<1)return;
+        for(int i=0;i<=twoIndex;i++)
+        {
+            if(nums[i]==0)
+                swap(nums[i],nums[zeroIndex++]);
+            else if(nums[i]==2)
+                swap(nums[i--],nums[twoIndex--]);
+            
+        }
+        
+    }
+};
