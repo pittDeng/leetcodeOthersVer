@@ -1,0 +1,67 @@
+//Others'Version
+class Solution {
+public:
+   ListNode* deleteDuplicates(ListNode* head){
+    	if(head == NULL || head->next == NULL) return head;
+    	ListNode dummy(0);
+    	dummy.next = head;
+    	head = &dummy;
+
+    	while(head->next && head->next->next){
+    		if(head->next->val == head->next->next->val){
+    			int val = head->next->val;
+    			while(head->next && head->next->val == val){
+    				head->next = head->next->next;
+    			}
+    		}else{
+    			head = head->next;
+    		}
+    	}
+    	return dummy.next;
+    }
+};
+
+
+
+
+
+
+
+
+//myversion,这里使用了指针的指针
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+#define null 0
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        if(head==null||head->next==null)return head;
+        ListNode **cur=&head;
+        ListNode *pnext=head->next;
+        while(pnext)
+        {
+            if(pnext->val==(*cur)->val)
+            {
+                while(pnext&&pnext->val==(*cur)->val)
+                  {
+                    pnext=pnext->next;
+                  }
+                *cur=pnext;
+            }
+            else
+            {
+                (*cur)->next=pnext;
+                cur=&((*cur)->next);
+            }
+            if(pnext)pnext=pnext->next;
+        }
+        return head;
+        
+    }
+};
